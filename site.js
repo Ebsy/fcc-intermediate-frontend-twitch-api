@@ -9,9 +9,8 @@ var results = [];
 var streamURL = 'https://api.twitch.tv/kraken/streams/{{CHAN}}?callback=?';
 
 var htmlString = '';
-var $grid
+var $grid;
 
-// var panels = ['grid-item', 'grid-item--width2', 'grid-item--width3', 'grid-item', 'grid-item--width2', 'grid-item--width3', 'grid-item', 'grid-item--width2', 'grid-item--width3', 'grid-item', 'grid-item--width2', 'grid-item--width3'];
 var panels = ['item', 'item', 'item', 'item', 'item', 'item', 'item', 'item', 'item', 'item', 'item', 'item'];
 
 $(document).ready(function() {
@@ -26,7 +25,7 @@ function getData() {
 
     $.getJSON(url, function(data) {
       getChanInfo(data._links.channel, function(result) {
-        console.log(result)
+        console.log(result);
         data.chanInfo = result;
         results.push(buildPanel(data));
         checkFinished();
@@ -40,12 +39,6 @@ function checkFinished() {
 
     var masonry_container = document.querySelector('#timeline');
     var new_items = []; // array to contain our DOM elements
-    // for each element we want to add, selected using jQuery, append it to our array
-
-    // use [0] to get at the DOM element
-
-
-
 
     htmlString = '';
     for (var i = 0; i < results.length; i++) {
@@ -53,16 +46,8 @@ function checkFinished() {
       console.log(results[i])
       console.log('---------')
       $(item).html(results[i]);
-      //new_items.push($('<div/>').html(results[i]).contents()); //  results[i];
       salvattore.appendElements(masonry_container, item);
     }
-
-
-
-    //$('#timeline').html(htmlString)
-
-
-    console.log(htmlString)
   }
 }
 
@@ -72,8 +57,7 @@ function getChanInfo(url, callback) {
   });
 }
 
-
-//Fisher-Yates
+// Fisher-Yates
 function shuffle(array) {
   var currentIndex = array.length,
     temporaryValue, randomIndex;
@@ -97,19 +81,18 @@ function shuffle(array) {
 function buildPanel(x) {
   var html = '';
   console.log(Math.floor((Math.random() * 10)));
-  html += '<div class="' + panels[Math.floor((Math.random() * 10))] + '">'
-  html += '<a target="_blank" href="' + 'http://twitch.tv/' + x.chanInfo.display_name + '">'
-  html += '<h4 class="title text-center">'
-  html += x.chanInfo.display_name
-  html += '</h4>'
-  html += '</a>'
-  html += '<img src="' + (x.chanInfo.profile_banner || x.chanInfo.logo || 'images/404_preview-300x300.png') + '"/>'
-  html += '<a target="_blank" href="' + 'http://twitch.tv/' + x.chanInfo.display_name + '">'
-  html += '<h4 class="title text-center">'
-  html += x.chanInfo.display_name
-  html += '</h4>'
-  html += '</a>'
-  html += '</div>' //second col
-  return html
-
+  html += '<div class="' + panels[Math.floor((Math.random() * 10))] + '">';
+  html += '<a target="_blank" href="' + 'http://twitch.tv/' + x.chanInfo.display_name + '">';
+  html += '<h4 class="title text-center">';
+  html += x.chanInfo.display_name;
+  html += '</h4>';
+  html += '</a>';
+  html += '<img src="' + (x.chanInfo.profile_banner || x.chanInfo.logo || 'images/404_preview-300x300.png') + '"/>';
+  html += '<a target="_blank" href="' + 'http://twitch.tv/' + x.chanInfo.display_name + '">';
+  html += '<h4 class="title text-center">';
+  html += x.chanInfo.display_name;
+  html += '</h4>';
+  html += '</a>';
+  html += '</div>';
+  return html;
 }
